@@ -25,9 +25,9 @@ function Button(
     return (
         <button
             className={classes({
-                variant: props.variant,
+                variant: variant,
                 size,
-                className: props.className,
+                className: className,
             })}
 
             {...otherProps}

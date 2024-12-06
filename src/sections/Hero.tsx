@@ -55,7 +55,7 @@ export default function Hero() {
                 { duration: 0.5 },
             ],
         ]);
-    }, []);
+    });
 
     return (
         <section className="py-24 overflow-x-clip" style={{
