@@ -1,31 +1,41 @@
-"use client";
+'use client';
 
 import { AnimationPlaybackControls, motion, useAnimate } from "framer-motion";
 import { useEffect, useRef, useState } from "react";
 
 export default function CallToAction() {
-    const[isHovered, setIsHovered] = useState(false)
-    const animation = useRef<AnimationPlaybackControls>(null);
+    const [isHovered, setIsHovered] = useState(false);
     const [scope, animate] = useAnimate();
+    const animationControls = useRef<AnimationPlaybackControls | null>(null);
 
     useEffect(() => {
-        animation.current = animate(
+        // Iniciar la animación y almacenar el control en la referencia
+        animationControls.current = animate(
             scope.current,
             { x: "-50%" },
             { duration: 30, ease: "linear", repeat: Infinity }
         );
-    }, []);
+
+        // Limpiar la animación al desmontar el componente
+        return () => {
+            animationControls.current?.stop(); // Detener la animación si es necesario
+        };
+    }, [animate, scope]);
 
     useEffect(() => {
-     if(animation.current) {
-        if(isHovered) {
-            animation.current.speed = 0.5;
-        } else {
-            animation.current.speed = 1;
+        if (animationControls.current) {
+            // Detener la animación actual
+            animationControls.current.stop();
+
+            // Reiniciar la animación con la nueva velocidad
+            const newDuration = isHovered ? 60 : 30; // Cambia la duración según el estado
+            animationControls.current = animate(
+                scope.current,
+                { x: "-50%" },
+                { duration: newDuration, ease: "linear", repeat: Infinity }
+            );
         }
-     }
-    }, [isHovered])
-    
+    }, [isHovered, animate, scope]);
 
     return (
         <section className="py-24">
