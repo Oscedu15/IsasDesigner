@@ -10,8 +10,21 @@ const inter = Inter({
 });
 
 export const metadata: Metadata = {
+    metadataBase: new URL("https://isasdesigner.vercel.app/"),
     title: "Modern Design Tool Landing Page",
     description: "Created with the help of Frontend Tribe",
+    openGraph: {
+        url: "https://isasdesigner.vercel.app/",
+        images: [
+            {
+                url: "/logo.png", // Ruta relativa a la imagen en la carpeta public
+                width: 1200, // Ancho de la imagen
+                height: 630, // Alto de la imagen
+                alt: "Osc FrontEnd", // Texto alternativo para la imagen
+            },
+        ],
+        type: "website",
+    },
 };
 
 export default function RootLayout({
